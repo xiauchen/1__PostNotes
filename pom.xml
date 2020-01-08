@@ -12,6 +12,7 @@
 	<artifactId>1__PostNotes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>1__PostNotes</name>
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -62,6 +63,9 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<fork>true</fork>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
