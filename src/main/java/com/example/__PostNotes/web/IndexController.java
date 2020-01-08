@@ -43,8 +43,6 @@ public class IndexController {
             data.accumulate("title"+i,lineService.listLineByTitleId(t1.getId()));
             i++;
         }
-//        data.put("title",titleService.listTitle());
-//        data.put("line",lineService.listLine());
         return data.toString();
     }
     //獲取byId ok

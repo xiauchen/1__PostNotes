@@ -33,11 +33,9 @@ public class EditController {
         Title t;
         if (title.getId() == null) {
             t=titleService.saveTitle(title);
-//            l=lineService.saveLine(line);
             System.out.println("save\n");
         }else{
             t=titleService.updateTitle(title.getId(),title);
-//            l=lineService.saveLine(line);
             System.out.println(title.getId().toString()+" update\n");
         }
         if(t==null){
