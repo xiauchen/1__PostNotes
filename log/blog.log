@@ -854,3 +854,16 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 	at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:95) ~[spring-data-jpa-2.2.3.RELEASE.jar:2.2.3.RELEASE]
 	... 55 common frames omitted
 
+2020-01-08 15:13:41.853  WARN 9424 --- [http-nio-8081-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2020-01-08 15:13:56.071  WARN 9424 --- [http-nio-8081-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MissingPathVariableException: Missing URI template variable 'tId' for method parameter of type Long]
+2020-01-08 15:15:13.695  WARN 15180 --- [http-nio-8081-exec-1] o.springframework.validation.DataBinder  : Skipping URI variable 'id' because request contains bind value with same name.
+2020-01-08 15:15:14.139  WARN 15180 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [415] milliseconds.
+2020-01-08 15:16:23.441  WARN 15180 --- [http-nio-8081-exec-3] o.springframework.validation.DataBinder  : Skipping URI variable 'id' because request contains bind value with same name.
+2020-01-08 15:18:26.646  WARN 15180 --- [http-nio-8081-exec-5] o.springframework.validation.DataBinder  : Skipping URI variable 'id' because request contains bind value with same name.
+2020-01-08 15:19:35.141  WARN 1840 --- [http-nio-8081-exec-1] o.springframework.validation.DataBinder  : Skipping URI variable 'id' because request contains bind value with same name.
+2020-01-08 15:19:35.585  WARN 1840 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [414] milliseconds.
+2020-01-08 15:23:20.217  WARN 10220 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [665] milliseconds.
+2020-01-08 15:24:23.942  WARN 10220 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m14s281ms22µs200ns).
+2020-01-08 15:26:54.161  WARN 13216 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [396] milliseconds.
+2020-01-08 15:28:34.155  WARN 12752 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [395] milliseconds.
+2020-01-08 15:29:31.188  WARN 5756 --- [http-nio-8081-exec-1] o.a.c.util.SessionIdGeneratorBase        : Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [416] milliseconds.

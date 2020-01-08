@@ -85,10 +85,19 @@ public class EditController {
 //        return "redirect:/comments/" + blogId;
 //    }
     @PostMapping("/line")
-    public String postLine(Line line, HttpSession session){
-        Long titleId=line.getTitle().getId();
-        line.setTitle(titleService.getTitle(titleId));
-        lineService.saveLine(line);
-        return "redirect:/comments/" + titleId;
+    public String postLine(Line line, HttpSession session) throws NotFoundException {
+        Line l;
+        if (line.getId() == null) {
+            l =  lineService.saveLine(line);
+        } else {
+            l = lineService.updateLine(line.getId(), line);
+        }
+        if(l == null){
+            System.out.println("message false");
+            return "404";
+        }else{
+            System.out.println("message complete");
+            return "400";
+        }
     }
 }

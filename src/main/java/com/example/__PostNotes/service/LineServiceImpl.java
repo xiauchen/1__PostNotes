@@ -85,7 +85,7 @@ public class LineServiceImpl implements LineService{
             throw new NotFoundException("不存在該標簽");
         }
 
-        return LineRepository.save(t);
+        return LineRepository.save(line);
     }
 
     @Transactional
