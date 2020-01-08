@@ -19,6 +19,8 @@ public interface LineService {
 
     List<Line> listLine();
 
+    List<Line> listLineByTitleId(Long id);
+
     List<Line> listLine(String ids);
 
 //    List<Line> listLineTop(Integer size);

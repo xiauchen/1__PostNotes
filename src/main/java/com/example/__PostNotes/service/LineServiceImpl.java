@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +46,11 @@ public class LineServiceImpl implements LineService{
     @Override
     public List<Line> listLine() {
         return LineRepository.findAll();
+    }
+
+    @Override
+    public List<Line> listLineByTitleId(Long id) {
+        return LineRepository.findByTitleId(id);
     }
 
 

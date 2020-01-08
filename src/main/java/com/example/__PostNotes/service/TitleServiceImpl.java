@@ -11,9 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDateTime;
+import java.util.*;
+
+import static java.util.Collections.sort;
 
 @Service
 public class TitleServiceImpl implements TitleService{
@@ -43,10 +44,20 @@ public class TitleServiceImpl implements TitleService{
         return titleRepository.findAll(pageable);
     }
 
+    //進行update 排序
     @Override
     public List<Title> listTitle() {
-        return titleRepository.findAll();
+//        return titleRepository.findAll().sort(Comparator.comparing(o -> o.getUpdateTime()));
+        List<Title> tSort = titleRepository.findAll();
+        tSort.sort(new Comparator<Title>() {
+            @Override
+            public int compare(Title title, Title t1) {
+                return t1.getUpdateTime().compareTo(title.getUpdateTime());
+            }
+        });
+        return tSort;
     }
+//list.sort(Comparator.comparing(o -> o.getDateTime()));
 
 
     @Override
@@ -120,5 +131,11 @@ public class TitleServiceImpl implements TitleService{
 
     @Override
     public Optional<Title> getTitleById(Long id){ return titleRepository.findById(id);}
+
+    @Override
+    public List<Title> listTitle(String query, Pageable pageable) {
+
+        return titleRepository.findByQuery(query,pageable);
+    }
 
 }

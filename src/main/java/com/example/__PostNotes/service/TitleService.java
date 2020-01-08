@@ -34,6 +34,8 @@ public interface TitleService {
     Title getTitleByName(String name);
     Optional<Title> getTitleById(Long id);
 
+    List<Title> listTitle(String query, Pageable pageable);
+
 //    Page<Title> listBlog(String query,Pageable pageable);
 //
 //    public Title getAndConvert(Long id) throws NotFoundException;

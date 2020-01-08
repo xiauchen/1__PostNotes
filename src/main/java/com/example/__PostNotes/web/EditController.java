@@ -1,5 +1,6 @@
 package com.example.__PostNotes.web;
 
+import com.example.__PostNotes.po.Line;
 import com.example.__PostNotes.po.Title;
 import com.example.__PostNotes.service.LineService;
 import com.example.__PostNotes.service.TitleService;
@@ -12,12 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -28,60 +27,64 @@ public class EditController {
     private LineService lineService;
     @Autowired
     private TitleService titleService;
-    //搜尋 ok
-    @GetMapping("/test/{id}")
-    public String tags(@PathVariable Long id) throws Exception {
-        JSONObject data = new JSONObject();
-        data.put("title",titleService.getTitleById(id).orElseThrow(()-> new Exception("What Null")));
-
-        return data.toString();
-    }
-    //修改by/id
-    @PostMapping("/test/{id}")
-    public String editPost(@Valid Title title, BindingResult result, @PathVariable Long id, RedirectAttributes attributes) throws NotFoundException {
-        Title title1 = titleService.getTitleByName(title.getName());
-        if(title1 != null){
-            result.rejectValue("name","nameError","不能添加重複的分類");
-        }
-
-        if(result.hasErrors()){
-            return "admin/types-input";
-        }
-
-        Title t = titleService.updateTitle(id,title);
-        if(t == null){
-            attributes.addFlashAttribute("message","更新失敗");
-        }else{
-            attributes.addFlashAttribute("message","更新成功");
-        }
-        return "redirect:/";
-    }
-    //新增和修改
-    @PostMapping("/test")
+    //新增和修改 line添加未完成
+    @PostMapping("/edit")
     public String post(Title title, BindingResult result, RedirectAttributes attributes) throws NotFoundException {
-
-//        title.setName("www");
-//        title.setLife(true);
         Title t;
         if (title.getId() == null) {
             t=titleService.saveTitle(title);
+//            l=lineService.saveLine(line);
             System.out.println("save\n");
         }else{
             t=titleService.updateTitle(title.getId(),title);
-            System.out.println(title.getId().toString()+"update\n");
+//            l=lineService.saveLine(line);
+            System.out.println(title.getId().toString()+" update\n");
         }
-
         if(t==null){
             System.out.println("False\n");
+            return "404";
         }else{
             System.out.println("True\n");
+            return "400";
         }
-        return "redirect:/";
     }
-    //刪除 ok
-    @GetMapping("/test/{id}/delete")
-    public String delete(@PathVariable Long id){
-        titleService.deleteTitle(id);
-        return "400";
+    //更改完成狀態life
+    @PostMapping("/{id}/life")
+    public String tags(Title title,@PathVariable Long id,@RequestParam String query) throws Exception {
+        Title t;
+        //功能1：便利貼已完成
+        title.setLife(false);
+        t=titleService.updateTitle(title.getId(),title);
+        System.out.println(title.getId().toString()+" update\n");
+        if(t==null){
+            System.out.println("False\n");
+            return "404";
+        }else{
+            System.out.println("True\n");
+            return "400";
+        }
+    }
+    //
+//    @PostMapping("/comments")
+//    public String post(Comment comment, HttpSession session){
+//        Long blogId=comment.getBlog().getId();
+//        comment.setBlog(blogService.getBlog(blogId));
+//        User user = (User) session.getAttribute("user");
+//        if(user != null){
+//            comment.setAvatar(user.getAvatar());
+//            comment.setAdminComment(true);
+//        }else{
+//            comment.setAvatar(avatar);
+//        }
+//
+//        commentService.saveComment(comment);
+//        return "redirect:/comments/" + blogId;
+//    }
+    @PostMapping("/line")
+    public String post(Line line, HttpSession session){
+        Long titleId=line.getTitle().getId();
+        line.setTitle(titleService.getTitle(titleId));
+        lineService.saveLine(line);
+        return "redirect:/comments/" + titleId;
     }
 }

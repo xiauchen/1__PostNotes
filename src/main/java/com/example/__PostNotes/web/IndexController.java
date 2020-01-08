@@ -34,13 +34,32 @@ public class IndexController {
     @GetMapping("/")
     public String index() throws JSONException {
         JSONObject data = new JSONObject();
-
         data.put("title",titleService.listTitle());
         data.put("line",lineService.listLine());
-
-        System.out.println(lineService.listLine());
         return data.toString();
-
+    }
+    //獲取byId ok
+    @GetMapping("/{id}")
+    public String tags(@PathVariable Long id) throws Exception {
+        JSONObject data = new JSONObject();
+        data.put("title",titleService.getTitleById(id).orElseThrow(()-> new Exception("What Null")));
+        data.put("line",lineService.listLineByTitleId(id));
+        return data.toString();
+    }
+    //刪除 ok
+    @DeleteMapping("/{id}/delete")
+    public String delete(@PathVariable Long id){
+        titleService.deleteTitle(id);
+        return "400";
+    }
+    //搜尋
+    @PostMapping("/search")
+    public String search(@PageableDefault(size = 7,sort ={"updateTime"},direction = Sort.Direction.DESC) Pageable pageable,
+                         @RequestParam String query, Model model) throws JSONException {
+        JSONObject data = new JSONObject();
+        data.put("page",titleService.listTitle("%"+query+"%",pageable));
+        data.put("query",query);
+        return data.toString();
     }
 
 }
