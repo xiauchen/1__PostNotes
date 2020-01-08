@@ -1,5 +1,6 @@
 package com.example.__PostNotes.web;
 
+import com.example.__PostNotes.po.Line;
 import com.example.__PostNotes.po.Title;
 import com.example.__PostNotes.service.LineService;
 import com.example.__PostNotes.service.TitleService;
@@ -34,8 +35,16 @@ public class IndexController {
     @GetMapping("/")
     public String index() throws JSONException {
         JSONObject data = new JSONObject();
-        data.put("title",titleService.listTitle());
-        data.put("line",lineService.listLine());
+        List<Title> t=titleService.listTitle();
+        int i=1;
+        for (Title t1:t
+             ) {
+            data.put("title"+i,t1);
+            data.accumulate("title"+i,lineService.listLineByTitleId(t1.getId()));
+            i++;
+        }
+//        data.put("title",titleService.listTitle());
+//        data.put("line",lineService.listLine());
         return data.toString();
     }
     //獲取byId ok
@@ -43,7 +52,7 @@ public class IndexController {
     public String tags(@PathVariable Long id) throws Exception {
         JSONObject data = new JSONObject();
         data.put("title",titleService.getTitleById(id).orElseThrow(()-> new Exception("What Null")));
-        data.put("line",lineService.listLineByTitleId(id));
+        data.accumulate("title",lineService.listLineByTitleId(id));
         return data.toString();
     }
     //刪除 ok
@@ -57,8 +66,14 @@ public class IndexController {
     public String search(@PageableDefault(size = 7,sort ={"updateTime"},direction = Sort.Direction.DESC) Pageable pageable,
                          @RequestParam String query, Model model) throws JSONException {
         JSONObject data = new JSONObject();
-        data.put("page",titleService.listTitle("%"+query+"%",pageable));
-        data.put("query",query);
+        List<Title> t=titleService.listTitle("%"+query+"%",pageable);
+        int i=1;
+        for (Title t1: t
+             ) {
+            data.put("title"+i,t1);
+            data.accumulate("title"+i,lineService.listLineByTitleId(t1.getId()));
+            i++;
+        }
         return data.toString();
     }
 

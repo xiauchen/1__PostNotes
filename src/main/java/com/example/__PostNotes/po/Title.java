@@ -25,8 +25,8 @@ public class Title {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="deadTime")
     private Date deadTime;
-
-    @OneToMany(mappedBy = "title")
+    //Persist,Remove,Merge,Detach,Refresh,All
+    @OneToMany(mappedBy = "title",cascade=CascadeType.ALL)
     private List<Line> line = new ArrayList<>();
 
     @Column(name="life")

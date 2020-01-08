@@ -48,13 +48,13 @@ public class TitleServiceImpl implements TitleService{
     @Override
     public List<Title> listTitle() {
 //        return titleRepository.findAll().sort(Comparator.comparing(o -> o.getUpdateTime()));
-        List<Title> tSort = titleRepository.findAll();
-        tSort.sort(new Comparator<Title>() {
-            @Override
-            public int compare(Title title, Title t1) {
-                return t1.getUpdateTime().compareTo(title.getUpdateTime());
-            }
-        });
+        List<Title> tSort = titleRepository.findAllByOrderByUpdateTimeDesc();
+//        tSort.sort(new Comparator<Title>() {
+//            @Override
+//            public int compare(Title title, Title t1) {
+//                return t1.getUpdateTime().compareTo(title.getUpdateTime());
+//            }
+//        });
         return tSort;
     }
 //list.sort(Comparator.comparing(o -> o.getDateTime()));

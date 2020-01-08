@@ -29,7 +29,7 @@ public class EditController {
     private TitleService titleService;
     //新增和修改 line添加未完成
     @PostMapping("/edit")
-    public String post(Title title, BindingResult result, RedirectAttributes attributes) throws NotFoundException {
+    public String postTitle(Title title, BindingResult result, RedirectAttributes attributes) throws NotFoundException {
         Title t;
         if (title.getId() == null) {
             t=titleService.saveTitle(title);
@@ -50,12 +50,16 @@ public class EditController {
     }
     //更改完成狀態life
     @PostMapping("/{id}/life")
-    public String tags(Title title,@PathVariable Long id,@RequestParam String query) throws Exception {
-        Title t;
+    public String postLife(@PathVariable Long id,@RequestParam String check) throws Exception {
+        Title t = titleService.getTitle(id);
         //功能1：便利貼已完成
-        title.setLife(false);
-        t=titleService.updateTitle(title.getId(),title);
-        System.out.println(title.getId().toString()+" update\n");
+        if(check == "0") {
+            t.setLife(false);
+        }else if(check == "1"){
+            t.setLife(true);
+        }
+        titleService.updateTitle(id,t);
+        System.out.println(t.getId().toString()+" lifeUpdate\n");
         if(t==null){
             System.out.println("False\n");
             return "404";
@@ -81,7 +85,7 @@ public class EditController {
 //        return "redirect:/comments/" + blogId;
 //    }
     @PostMapping("/line")
-    public String post(Line line, HttpSession session){
+    public String postLine(Line line, HttpSession session){
         Long titleId=line.getTitle().getId();
         line.setTitle(titleService.getTitle(titleId));
         lineService.saveLine(line);
