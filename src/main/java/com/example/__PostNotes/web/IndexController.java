@@ -34,11 +34,15 @@ public class IndexController {
     //主頁
     @GetMapping("/")
     public String index() throws JSONException {
+        return "Hello Docker";
+    }
+    @GetMapping("/All")
+    public String all() throws JSONException {
         JSONObject data = new JSONObject();
         List<Title> t=titleService.listTitle();
         int i=1;
         for (Title t1:t
-             ) {
+        ) {
             data.put("title"+i,t1);
             data.accumulate("title"+i,lineService.listLineByTitleId(t1.getId()));
             i++;
@@ -74,5 +78,4 @@ public class IndexController {
         }
         return data.toString();
     }
-
 }

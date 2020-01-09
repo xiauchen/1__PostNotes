@@ -56,9 +56,15 @@
 			<version>0.0.20131108.vaadin1</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.196</version>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>1-postnotes-v1.1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
