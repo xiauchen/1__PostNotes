@@ -19,9 +19,11 @@ public class Title {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="createTime")
     private Date createTime;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="updateTime")
     private Date updateTime;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name="deadTime")
     private Date deadTime;

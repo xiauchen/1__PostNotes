@@ -5,11 +5,14 @@ spring:
     username: sa
     password:
     driverClassName: org.h2.Driver
-    initialization-mode: always
   jpa:
+    database: default
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.H2Dialect
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
         show_sql: true
@@ -21,9 +24,6 @@ spring:
     console:
       enabled: true
       path: /console
-      settings:
-        trace: false
-        web-allow-others: true
 
 logging:
   level:
