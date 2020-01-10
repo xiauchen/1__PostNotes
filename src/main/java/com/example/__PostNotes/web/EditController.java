@@ -66,22 +66,6 @@ public class EditController {
             return "400";
         }
     }
-    //
-//    @PostMapping("/comments")
-//    public String post(Comment comment, HttpSession session){
-//        Long blogId=comment.getBlog().getId();
-//        comment.setBlog(blogService.getBlog(blogId));
-//        User user = (User) session.getAttribute("user");
-//        if(user != null){
-//            comment.setAvatar(user.getAvatar());
-//            comment.setAdminComment(true);
-//        }else{
-//            comment.setAvatar(avatar);
-//        }
-//
-//        commentService.saveComment(comment);
-//        return "redirect:/comments/" + blogId;
-//    }
     @PostMapping("/line")
     public String postLine(Line line, HttpSession session) throws NotFoundException {
         Line l;
